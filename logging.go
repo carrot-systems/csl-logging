@@ -2,19 +2,25 @@ package logging
 
 import (
 	"github.com/carrot-systems/csl-logging/src/gateway/rollbar"
+	"github.com/carrot-systems/csl-logging/src/usecases"
 )
 
 type Logger struct {
 	config LoggerConfig
-	engine Usecases
+	engine usecases.Usecases
 }
 
 func LoadLogger(config LoggerConfig) Logger {
-	var engine Usecases
+	var engine usecases.Usecases
 
 	switch config.Engine {
 	case "rollbar":
-		engine = rollbar.CreateLogger(config)
+		engine = rollbar.CreateLogger(rollbar.RollbarConfig{
+			Token:           config.Token,
+			EnvironmentType: config.EnvironmentType,
+			Version:         config.Version,
+			Hostname:        config.Hostname,
+		})
 		break
 	}
 
