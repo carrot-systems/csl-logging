@@ -1,13 +1,12 @@
 package rollbar
 
 import (
-	"github.com/carrot-systems/csl-logging/src/config"
-	"github.com/carrot-systems/csl-logging/src/usecases"
+	"github.com/carrot-systems/csl-logging"
 	rb "github.com/rollbar/rollbar-go"
 )
 
 type rollbar struct {
-	config config.LoggerConfig
+	config logging.LoggerConfig
 }
 
 func (r rollbar) Log(err error) {
@@ -15,7 +14,7 @@ func (r rollbar) Log(err error) {
 	rb.Wait()
 }
 
-func CreateLogger(config config.LoggerConfig) usecases.Logger {
+func CreateLogger(config logging.LoggerConfig) logging.Usecases {
 	rb.SetToken(config.Token)
 	rb.SetEnvironment(config.EnvironmentType) // defaults to "development"
 	rb.SetCodeVersion(config.Version)         // optional Git hash/branch/tag (required for GitHub integration)

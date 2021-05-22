@@ -3,11 +3,10 @@ package main
 import (
 	"errors"
 	logging "github.com/carrot-systems/csl-logging"
-	config "github.com/carrot-systems/csl-logging/src/config"
 )
 
 func main() {
-	log := logging.LoadLogger(config.LoggerConfig{
+	log := logging.LoadLogger(logging.LoggerConfig{
 		Engine:          "rollbar",
 		Token:           "",
 		EnvironmentType: "development",
